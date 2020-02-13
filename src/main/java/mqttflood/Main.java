@@ -36,7 +36,7 @@ public class Main {
 
 	private static void sendLoop(int startSize, int endSize, long stepFactor, int durationInSeconds, long frequency)
 			throws MqttException, InterruptedException {
-		for (int size = startSize; size < endSize; size *= stepFactor) {
+		for (int size = startSize; size <= endSize; size *= stepFactor) {
 			byte[] data = new byte[size];
 			
 			System.out.println("sending " + size + " bytes ");
