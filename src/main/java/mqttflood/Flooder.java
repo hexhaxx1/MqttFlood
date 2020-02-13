@@ -6,7 +6,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 public class Flooder {
 
 	public void wave(String topic, byte[] data, long frequency, int durationInSeconds) throws MqttException, InterruptedException {
-		MqttClient mc = new MqttClient("tcp://localhost:1883", "client_" + Thread.currentThread().getName());
+		MqttClient mc = new MqttClient("tcp://localhost:1883", "client_" + Thread.currentThread().getName() + "_" + MqttClient.generateClientId());
 		mc.connect();
 		int qos = 0;
 		boolean retained = false;
