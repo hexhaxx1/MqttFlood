@@ -10,7 +10,7 @@ public class FrequencyCaller {
 		
 		long start = System.nanoTime();
 		for(long i=0; i<times; i++) {
-			call(method, maxTime, start, i);
+			call(method, maxTime, start, i+1);
 		}
 		long stop = System.nanoTime();
 		
@@ -19,12 +19,11 @@ public class FrequencyCaller {
 	}
 
 	private void call(Runnable method, long maxTime, long firstStart, long callCounter) throws InterruptedException {
-		long start = System.nanoTime();
 		method.run();
 		long stop = System.nanoTime();
 		
-		long duration = stop - start;
-		long left = maxTime - duration - 10000;
+		long totalDuration = stop - firstStart;
+		long left = (maxTime * callCounter) - totalDuration - 10000;
 		
 		if (left > 0) {
 			Thread.sleep(left / 1000000, (int) (left % 1000000));

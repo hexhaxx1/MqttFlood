@@ -10,8 +10,8 @@ public class Main {
 		int endSize = startSize * 1000;
 		long stepFactor = 10;
 		int durationInSeconds = 10;
-		int parallelThreads = 1;
-		long frequency = 500;
+		int parallelThreads = 2;
+		long frequency = 1000;
 		
 		doSend(startSize, endSize, stepFactor, durationInSeconds, parallelThreads, frequency);
 	}
