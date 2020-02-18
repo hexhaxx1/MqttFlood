@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) throws MqttException, InterruptedException {
 		
-		int startSize = 1024;
+		int startSize = 10;
 		int endSize = startSize * 1000;
 		long stepFactor = 10;
 		int durationInSeconds = 10;
@@ -36,11 +36,17 @@ public class Main {
 
 	private static void sendLoop(int startSize, int endSize, long stepFactor, int durationInSeconds, long frequency)
 			throws MqttException, InterruptedException {
+		String message = "{ \"Temp A\" : 23.45 , \"timestamp\" : 1579774539 , \"Unit\" : \"GradC\" } ";
 		for (int size = startSize; size <= endSize; size *= stepFactor) {
-			byte[] data = new byte[size];
-			
-			System.out.println("sending " + size + " bytes ");
-			new Flooder().wave("/hello", data, frequency, durationInSeconds);
+			StringBuilder sb = new StringBuilder();
+			sb.append("[").append(message);
+			for(int s=1; s<size; s++) {
+				sb.append(",").append(message);
+			}
+			sb.append("]");
+			byte[] data = sb.toString().getBytes();	
+			System.out.println("sending " + data.length + " bytes ");
+			new Flooder().wave("Analysis/TestA", data, frequency, durationInSeconds);
 		}
 	}
 }
